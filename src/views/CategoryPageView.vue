@@ -1,10 +1,14 @@
 <script lang="ts" setup>
   import { onMounted } from 'vue';
+  import { useI18n } from 'vue-i18n';
+  import { usePageTitle } from '@/composables/usePageTitle.ts';
 
   import ProductCard from '@/components/ProductCard.vue';
   import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue';
   import { useCategory } from '@/composables/useCategory.ts';
 
+  const { t } = useI18n();
+  usePageTitle();
   const { fetchData, isLoading, category, products } = useCategory();
 
   onMounted(fetchData);
@@ -25,7 +29,7 @@
       <h1 class="font-weight-medium my-5">{{ category!.name }}</h1>
 
       <div v-if="products.length === 0" class="text-center my-16">
-        <p class="text-h3">No products found in this category.</p>
+        <p class="text-h3">{{ t('category.noProducts') }}</p>
       </div>
 
       <v-row v-else justify="center">

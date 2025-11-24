@@ -9,7 +9,7 @@
 </script>
 <template>
   <v-card hover @click="router.push(`/product/${product.id}`)">
-    <v-img :src="product.imageUrl">
+    <v-img :src="product.imageUrl" :alt="product.name">
       <v-card-title class="text-black">{{ product.name }}</v-card-title>
     </v-img>
     <v-card-actions>

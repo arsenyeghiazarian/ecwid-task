@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
   import type { IProduct } from '@/interfaces/product';
   import { useCartStore } from '@/store/cart';
 
@@ -8,6 +9,7 @@
   }
 
   const props = defineProps<Props>();
+  const { t } = useI18n();
 
   const cartStore = useCartStore();
   const { addToCart, removeFromCart, updateQuantity } = cartStore;
@@ -38,7 +40,7 @@
   <div @click.stop>
     <!-- Show Buy button if quantity is 0 -->
     <v-btn v-if="quantity === 0" variant="outlined" size="small" @click="increaseQuantity">
-      Buy
+      {{ t('common.buy') }}
     </v-btn>
     <!-- Show quantity selector when quantity is 1 or more -->
     <div v-else class="d-flex align-center">

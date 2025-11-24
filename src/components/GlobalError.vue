@@ -1,5 +1,8 @@
 <script lang="ts" setup>
+  import { useI18n } from 'vue-i18n';
   import { globalError, isGlobalErrorVisible, clearError } from '@/utils/errorHandler';
+
+  const { t } = useI18n();
 </script>
 
 <template>
@@ -17,7 +20,7 @@
     </div>
 
     <template #actions>
-      <v-btn variant="text" color="white" @click="clearError"> Close </v-btn>
+      <v-btn variant="text" color="white" @click="clearError">{{ t('common.close') }}</v-btn>
     </template>
   </v-snackbar>
 </template>

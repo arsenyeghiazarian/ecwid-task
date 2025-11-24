@@ -1,0 +1,43 @@
+{
+  "common": {
+    "home": "Home",
+    "buy": "Buy",
+    "total": "Total",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "delete": "Delete"
+  },
+  "header": { "title": "Store" },
+  "catalog": { "categories": "Categories", "products": "Products" },
+  "cart": {
+    "title": "Your Shopping Cart",
+    "empty": "Cart is empty",
+    "summary": "Summary",
+    "checkout": "Checkout",
+    "deleteConfirm": "Are you sure you want to delete this Item?",
+    "congratulations": "Congratulations on your purchase!",
+    "goShopping": "Go to Shopping"
+  },
+  "product": { "price": "Price:" },
+  "category": { "noProducts": "No products found in this category." },
+  "notFound": {
+    "title": "Page Not Found / 404",
+    "message": "The page you are looking for doesn't exist",
+    "goToMain": "Go To Main Page"
+  },
+  "pages": {
+    "home": "Home",
+    "category": "Category",
+    "productDetails": "Product Details",
+    "shoppingCart": "Shopping Cart",
+    "pageNotFound": "Page Not Found"
+  },
+  "meta": {
+    "home": "Browse our wide selection of products and categories. Find everything you need in one place.",
+    "category": "Explore products in this category. Discover quality items at great prices.",
+    "productDetails": "View detailed information about this product including description, price, and images.",
+    "shoppingCart": "Review your shopping cart items and proceed to checkout.",
+    "pageNotFound": "The page you are looking for could not be found. Please check the URL and try again."
+  }
+}

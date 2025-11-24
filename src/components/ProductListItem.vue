@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useI18n } from 'vue-i18n';
   import DOMPurify from 'dompurify';
   import BuyBtn from '@/components/BuyBtn.vue';
   import type { IProduct } from '@/interfaces/product';
@@ -12,6 +13,7 @@
   }
 
   const { product, hasDeleteBtn = false } = defineProps<Props>();
+  const { t } = useI18n();
 
   const { removeFromCart } = useCartStore();
   const router = useRouter();
@@ -32,7 +34,7 @@
   <v-card hover class="mb-3" @click="router.push(`/product/${product.id}`)">
     <v-row no-gutters>
       <v-col cols="12" sm="4" md="3">
-        <v-img :src="product.imageUrl" height="200" cover></v-img>
+        <v-img :src="product.imageUrl" :alt="product.name" height="200" cover></v-img>
       </v-col>
       <v-col cols="12" sm="8" md="9" class="d-flex flex-column">
         <v-card-title class="text-h6">
@@ -64,11 +66,21 @@
   </v-card>
   <v-dialog v-model="showDialog" max-width="500" persistent>
     <v-card>
-      <v-card-text class="mt-7">Are you sure you want to delete this Item?</v-card-text>
+      <v-card-text class="mt-7">{{ t('cart.deleteConfirm') }}</v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text="Yes" variant="flat" color="green" @click="handleItemRemove"></v-btn>
-        <v-btn color="red" variant="flat" text="No" @click="showDialog = false"></v-btn>
+        <v-btn
+          :text="t('common.yes')"
+          variant="flat"
+          color="green"
+          @click="handleItemRemove"
+        ></v-btn>
+        <v-btn
+          color="red"
+          variant="flat"
+          :text="t('common.no')"
+          @click="showDialog = false"
+        ></v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

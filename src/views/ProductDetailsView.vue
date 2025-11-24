@@ -1,11 +1,15 @@
 <script lang="ts" setup>
   import { onMounted, computed } from 'vue';
+  import { useI18n } from 'vue-i18n';
   import DOMPurify from 'dompurify';
 
   import ProductDetailsSkeleton from '@/components/ProductDetailsSkeleton.vue';
   import BuyBtn from '@/components/BuyBtn.vue';
   import { useProductDetails } from '@/composables/useProductDetails';
+  import { usePageTitle } from '@/composables/usePageTitle.ts';
 
+  const { t } = useI18n();
+  usePageTitle();
   const { fetchDetails, product, isLoading } = useProductDetails();
   const safeHtml = computed(() => DOMPurify.sanitize(product.value?.description || ''));
 
@@ -19,9 +23,10 @@
         <v-col cols="12" sm="6">
           <v-carousel hide-delimiter-background :show-arrows="product.galleryImages.length > 1">
             <v-carousel-item
-              v-for="image in product.galleryImages"
+              v-for="(image, index) in product.galleryImages"
               :key="image.id"
               :src="image.url"
+              :alt="`${product.name} - Image ${index + 1}`"
             ></v-carousel-item>
           </v-carousel>
         </v-col>
@@ -29,7 +34,9 @@
           <h1 class="font-weight-medium mb-2">{{ product.name }}</h1>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <p class="mb-1" v-html="safeHtml"></p>
-          <p class="mb-2"><strong>Price:</strong> {{ product.price }}</p>
+          <p class="mb-2">
+            <strong>{{ t('product.price') }}</strong> {{ product.price }}
+          </p>
           <buy-btn :item="product"></buy-btn>
         </v-col>
       </v-row>
