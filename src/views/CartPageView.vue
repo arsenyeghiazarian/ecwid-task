@@ -22,9 +22,11 @@
       <v-row>
         <v-col cols="12" sm="9">
           <v-row dense>
-            <v-col v-for="product in items" :key="product.id" cols="12">
-              <product-list-item :product="product" :has-delete-btn="true" />
-            </v-col>
+            <transition-group name="slide" tag="div">
+              <v-col v-for="product in items" :key="product.id" cols="12">
+                <product-list-item :product="product" :has-delete-btn="true" />
+              </v-col>
+            </transition-group>
           </v-row>
         </v-col>
         <v-col cols="12" sm="3" class="position-relative">
@@ -49,3 +51,14 @@
     </div>
   </template>
 </template>
+
+<style scoped>
+  .slide-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  .slide-leave-to {
+    opacity: 0;
+    transform: translateX(-150px);
+  }
+</style>

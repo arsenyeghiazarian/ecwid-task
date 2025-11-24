@@ -20,7 +20,7 @@
   const plainDescription = computed(() => {
     if (!product.description) return '';
     const stripped = DOMPurify.sanitize(product.description);
-    return stripped.length > 150 ? stripped.substring(0, 150) + '...' : stripped;
+    return stripped.length > 250 ? stripped.substring(0, 250) + '...' : stripped;
   });
 
   const handleItemRemove = () => {
@@ -35,11 +35,20 @@
         <v-img :src="product.imageUrl" height="200" cover></v-img>
       </v-col>
       <v-col cols="12" sm="8" md="9" class="d-flex flex-column">
-        <v-card-title class="text-h6">{{ product.name }}</v-card-title>
+        <v-card-title class="text-h6">
+          <div class="d-flex align-center justify-space-between">
+            <span class="text-h6">{{ product.name }}</span>
+            <v-btn
+              v-if="hasDeleteBtn"
+              density="compact"
+              variant="text"
+              icon="mdi-delete"
+              @click.stop="showDialog = true"
+            ></v-btn>
+          </div>
+        </v-card-title>
         <v-card-text class="flex-grow-1">
-          <p v-if="plainDescription" class="text-body-2" style="line-height: 1.5">
-            {{ plainDescription }}
-          </p>
+          <p v-if="plainDescription" class="text-body-2" v-html="plainDescription"></p>
         </v-card-text>
         <v-card-actions class="justify-space-between align-center px-4">
           <p class="font-weight-medium text-h6 mb-0">
@@ -47,13 +56,6 @@
           </p>
           <div class="d-flex align-center">
             <buy-btn :item="product" class="mr-2"></buy-btn>
-            <v-btn
-              v-if="hasDeleteBtn"
-              density="compact"
-              size="small"
-              icon="mdi-delete"
-              @click.stop="showDialog = true"
-            ></v-btn>
           </div>
         </v-card-actions>
       </v-col>
