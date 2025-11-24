@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
 
-  import ProductCard from '@/components/ProductCard.vue';
+  import ProductListItem from '@/components/ProductListItem.vue';
   import { useCartStore } from '@/store/cart';
   import { storeToRefs } from 'pinia';
 
@@ -20,15 +20,15 @@
     <h1 class="font-weight-medium mb-5">Your Shopping Cart</h1>
     <template v-if="items.length">
       <v-row>
-        <v-col cols="12" sm="9" md="10">
-          <v-row>
-            <v-col v-for="product in items" :key="product.id" cols="12" sm="6" md="3" lg="2">
-              <product-card :product="product" :has-delete-btn="true" />
+        <v-col cols="12" sm="9">
+          <v-row dense>
+            <v-col v-for="product in items" :key="product.id" cols="12">
+              <product-list-item :product="product" :has-delete-btn="true" />
             </v-col>
           </v-row>
         </v-col>
-        <v-col class="position-relative" cols="12" sm="3" md="2">
-          <v-card title="Summary" class="position-sticky top-0">
+        <v-col cols="12" sm="3" class="position-relative">
+          <v-card title="Summary" class="position-sticky" style="top: 70px">
             <v-card-text class="d-flex justify-space-between">
               <p class="font-weight-medium">Total:</p>
               <p>€{{ totalPrice }}</p>

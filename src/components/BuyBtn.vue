@@ -42,15 +42,9 @@
     </v-btn>
     <!-- Show quantity selector when quantity is 1 or more -->
     <div v-else class="d-flex align-center">
-      <v-btn icon="mdi-minus" size="small" density="compact" @click="decreaseQuantity"></v-btn>
-      <span class="mx-2">{{ quantity }}</span>
-      <v-btn
-        icon="mdi-plus"
-        size="small"
-        density="compact"
-        @click="increaseQuantity"
-      >
-      </v-btn>
+      <v-btn icon="mdi-minus" density="compact" @click="decreaseQuantity"></v-btn>
+      <span class="mx-4">{{ quantity }}</span>
+      <v-btn icon="mdi-plus" density="compact" @click="increaseQuantity"> </v-btn>
     </div>
   </div>
 </template>

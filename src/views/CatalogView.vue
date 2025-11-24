@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useCatalogData } from '@/composables/useCatalogData.ts';
 
   import ProductCard from '@/components/ProductCard.vue';
+  import ProductListItem from '@/components/ProductListItem.vue';
   import ProductCardSkeleton from '@/components/ProductCardSkeleton.vue';
+  import ProductListItemSkeleton from '@/components/ProductListItemSkeleton.vue';
   import CategoryCardSkeleton from '@/components/CategoryCardSkeleton.vue';
 
   const { fetchData, isLoading, categories, products } = useCatalogData();
+  const viewMode = ref<'grid' | 'list'>('grid');
 
   onMounted(fetchData);
 </script>
@@ -33,8 +36,15 @@
         </v-col>
       </template>
     </v-row>
-    <h2 class="text-center font-weight-medium my-5">Products</h2>
-    <v-row justify="center">
+    <div class="d-flex justify-space-between align-center my-5">
+      <h2 class="font-weight-medium mb-0">Products</h2>
+      <v-btn-toggle v-model="viewMode" mandatory variant="outlined">
+        <v-btn value="grid" icon="mdi-view-grid"></v-btn>
+        <v-btn value="list" icon="mdi-view-list"></v-btn>
+      </v-btn-toggle>
+    </div>
+    <!-- Grid View -->
+    <v-row v-if="viewMode === 'grid'" justify="center">
       <template v-if="isLoading">
         <v-col v-for="n in 6" :key="n" cols="12" sm="6" md="4">
           <product-card-skeleton />
@@ -46,5 +56,14 @@
         </v-col>
       </template>
     </v-row>
+    <!-- List View -->
+    <div v-else>
+      <template v-if="isLoading">
+        <product-list-item-skeleton v-for="n in 6" :key="n" />
+      </template>
+      <template v-else>
+        <product-list-item v-for="product in products" :key="product.id" :product="product" />
+      </template>
+    </div>
   </v-container>
 </template>
