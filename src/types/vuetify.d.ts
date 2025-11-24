@@ -9,4 +9,3 @@ declare module 'vuetify/directives' {
   const directives: Record<string, Directive>;
   export default directives;
 }
-
