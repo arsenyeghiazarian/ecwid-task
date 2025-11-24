@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
+  import { computed } from 'vue';
   import type { IProduct } from '@/interfaces/product';
   import { useCartStore } from '@/store/cart';
 
@@ -9,32 +9,30 @@
 
   const props = defineProps<Props>();
 
-  const { addToCart, removeFromCart, updateQuantity, getItem } = useCartStore();
+  const cartStore = useCartStore();
+  const { addToCart, removeFromCart, updateQuantity } = cartStore;
 
-  // Manage the current quantity
-  const quantity = ref(0);
+  const quantity = computed(() => {
+    const cartItem = cartStore.getItem(props.item.id);
+    return cartItem?.quantity ?? 0;
+  });
 
   function increaseQuantity() {
-    quantity.value++;
-    addToCart(props.item);
+    if (quantity.value === 0) {
+      addToCart(props.item);
+    } else {
+      updateQuantity(props.item.id, quantity.value + 1);
+    }
   }
 
   function decreaseQuantity() {
-    // If quantity goes to 0, reset the selector to show "Buy" button
-    if (quantity.value > 1) {
-      updateQuantity(props.item.id, --quantity.value);
+    const currentQty = quantity.value;
+    if (currentQty > 1) {
+      updateQuantity(props.item.id, currentQty - 1);
     } else {
-      quantity.value = 0;
-      removeFromCart(props.item?.id);
+      removeFromCart(props.item.id);
     }
   }
-
-  onMounted(() => {
-    const cartItem = getItem(props.item?.id) || null;
-    if (cartItem) {
-      quantity.value = cartItem.quantity!;
-    }
-  });
 </script>
 <template>
   <div @click.stop>
@@ -50,7 +48,7 @@
         icon="mdi-plus"
         size="small"
         density="compact"
-        @click="updateQuantity(item.id, ++quantity)"
+        @click="increaseQuantity"
       >
       </v-btn>
     </div>
