@@ -22,7 +22,10 @@ A modern frontend project built with Vue 3, Vite, and TypeScript. This project w
 - **[TypeScript](https://www.typescriptlang.org/)** – Strong typing for scalable code
 - **[Pinia](https://pinia.vuejs.org/)** – State management library for Vue
 - **[Vuetify 3](https://vuetifyjs.com/)** – Material Design UI components
+- **[Vue I18n](https://vue-i18n.intlify.dev/)** – Internationalization plugin for Vue
+- **[VueUse Head](https://vueuse.org/head/)** – Document head management
 - **[Axios](https://axios-http.com/)** – Promise-based HTTP client
+- **[DOMPurify](https://github.com/cure53/DOMPurify)** – XSS sanitizer for HTML
 - **[ESLint](https://eslint.org/)** + **[Prettier](https://prettier.io/)** – Code quality and formatting
 
 ---
@@ -80,7 +83,8 @@ src/
 ├── components/          # Reusable components
 ├── composables/         # Composition API logic
 ├── interfaces/          # TypeScript interfaces and model definitions
-├── plugins/             # Plugin setups (e.g. Axios, Vuetify)
+├── locales/             # Translation files (en.json, ru.json)
+├── plugins/             # Plugin setups (Axios, Vuetify, i18n)
 ├── router/              # Vue Router configuration
 ├── services/            # API calls and business logic
 ├── stores/              # Pinia state stores
@@ -129,3 +133,43 @@ To ensure consistent code formatting across all developers' machines, this proje
 3. VS Code will now use the project's local `.prettierrc` config when formatting.
 
 > 💡 No global Prettier config is needed — the project will use the local settings automatically if configured like above.
+
+---
+
+## Internationalization
+
+The application supports multiple languages. Currently available languages:
+
+- **English** (en) - Default
+- **Russian** (ru)
+
+### Adding a New Language
+
+1. Create a new translation file in `src/locales/` (e.g., `fr.json`)
+2. Copy the structure from `en.json` and translate the values
+3. Update `src/plugins/i18n.ts` to import and register the new language
+4. Add the language option to `src/components/LanguageSwitch.vue`
+
+### Using Translations
+
+In components, use the `useI18n` composable:
+
+```vue
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
+
+<template>
+  <h1>{{ t('catalog.products') }}</h1>
+</template>
+```
+
+---
+
+## SEO & Meta Tags
+
+The application uses `@vueuse/head` for managing page titles and meta descriptions. Each page automatically updates its meta tags based on the current language and route.
+
+Meta descriptions are defined in the translation files under the `meta` key and are automatically applied to each page.
