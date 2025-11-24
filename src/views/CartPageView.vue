@@ -21,13 +21,13 @@
     <template v-if="items.length">
       <v-row>
         <v-col cols="12" sm="9">
-          <v-row dense>
+          <div>
             <transition-group name="slide" tag="div">
-              <v-col v-for="product in items" :key="product.id" cols="12">
+              <div v-for="product in items" :key="product.id" cols="12">
                 <product-list-item :product="product" :has-delete-btn="true" />
-              </v-col>
+              </div>
             </transition-group>
-          </v-row>
+          </div>
         </v-col>
         <v-col cols="12" sm="3" class="position-relative">
           <v-card title="Summary" class="position-sticky" style="top: 70px">

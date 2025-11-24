@@ -42,6 +42,7 @@
               v-if="hasDeleteBtn"
               density="compact"
               variant="text"
+              size="small"
               icon="mdi-delete"
               @click.stop="showDialog = true"
             ></v-btn>

@@ -8,4 +8,3 @@
     </small>
   </v-footer>
 </template>
-

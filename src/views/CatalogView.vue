@@ -16,7 +16,7 @@
 <template>
   <v-container max-width="1120">
     <h2 class="text-center font-weight-medium mb-5">Categories</h2>
-    <v-row justify="center">
+    <v-row justify="center" dense>
       <template v-if="isLoading">
         <v-col v-for="n in 6" :key="n" cols="12" sm="6" md="4">
           <category-card-skeleton />
