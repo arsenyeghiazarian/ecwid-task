@@ -31,17 +31,26 @@
   };
 </script>
 <template>
-  <v-card hover class="mb-3" @click="router.push(`/product/${product.id}`)">
+  <v-card hover class="mb-3 position-relative" @click="router.push(`/product/${product.id}`)">
+    <v-btn
+      v-if="hasDeleteBtn"
+      class="d-flex d-sm-none position-absolute delete-btn"
+      density="compact"
+      variant="text"
+      icon="mdi-delete"
+      @click.stop="showDialog = true"
+    ></v-btn>
     <v-row no-gutters>
       <v-col cols="12" sm="4" md="3">
         <v-img :src="product.imageUrl" :alt="product.name" height="200" cover></v-img>
       </v-col>
       <v-col cols="12" sm="8" md="9" class="d-flex flex-column">
         <v-card-title class="text-h6">
-          <div class="d-flex align-center justify-space-between">
+          <div class="d-flex align-center justify-space-between gap-2">
             <span class="text-h6">{{ product.name }}</span>
             <v-btn
               v-if="hasDeleteBtn"
+              class="d-none d-sm-flex"
               density="compact"
               variant="text"
               size="small"
@@ -86,3 +95,11 @@
     </v-card>
   </v-dialog>
 </template>
+
+<style scoped>
+  .delete-btn {
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+  }
+</style>
