@@ -40,3 +40,10 @@ export function clearError(): void {
   globalError.value = null;
   isGlobalErrorVisible.value = false;
 }
+
+export function isNetworkError(error: unknown): boolean {
+  if (axios.isAxiosError(error)) {
+    return !error.response || error.code === 'ERR_NETWORK';
+  }
+  return false;
+}

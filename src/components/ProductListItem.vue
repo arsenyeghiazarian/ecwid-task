@@ -51,6 +51,7 @@
           </div>
         </v-card-title>
         <v-card-text class="flex-grow-1">
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <p v-if="plainDescription" class="text-body-2" v-html="plainDescription"></p>
         </v-card-text>
         <v-card-actions class="justify-space-between align-center px-4">
@@ -58,7 +59,7 @@
             {{ product.defaultDisplayedPriceFormatted }}
           </p>
           <div class="d-flex align-center">
-            <buy-btn :item="product" class="mr-2"></buy-btn>
+            <buy-btn :item="product"></buy-btn>
           </div>
         </v-card-actions>
       </v-col>

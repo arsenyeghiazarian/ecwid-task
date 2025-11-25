@@ -5,12 +5,13 @@
 
   import ProductDetailsSkeleton from '@/components/ProductDetailsSkeleton.vue';
   import BuyBtn from '@/components/BuyBtn.vue';
+  import NetworkErrorState from '@/components/NetworkErrorState.vue';
   import { useProductDetails } from '@/composables/useProductDetails';
   import { usePageTitle } from '@/composables/usePageTitle.ts';
 
   const { t } = useI18n();
   usePageTitle();
-  const { fetchDetails, product, isLoading } = useProductDetails();
+  const { fetchDetails, product, isLoading, hasNetworkError } = useProductDetails();
   const safeHtml = computed(() => DOMPurify.sanitize(product.value?.description || ''));
 
   onMounted(fetchDetails);
@@ -18,6 +19,12 @@
 <template>
   <div class="mt-16">
     <product-details-skeleton v-if="isLoading" />
+    <network-error-state
+      v-else-if="hasNetworkError"
+      :message="t('common.networkIssue')"
+      :retry-label="t('common.retry')"
+      @retry="fetchDetails"
+    />
     <v-container v-else-if="product" max-width="1120">
       <v-row>
         <v-col cols="12" sm="6">

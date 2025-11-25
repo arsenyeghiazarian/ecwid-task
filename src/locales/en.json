@@ -6,7 +6,9 @@
     "close": "Close",
     "yes": "Yes",
     "no": "No",
-    "delete": "Delete"
+    "delete": "Delete",
+    "networkIssue": "We couldn't load the page because of a network issue. Please check your connection and try again.",
+    "retry": "Retry"
   },
   "header": { "title": "Store" },
   "catalog": { "categories": "Categories", "products": "Products" },
